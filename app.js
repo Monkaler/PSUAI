@@ -282,8 +282,8 @@
       }
       bird.x += horizontalSpeed * delta;
       if (bird.x >= this.finishX) {
-        bird.x = this.finishX;
-        bird.vy *= 0.6;
+        bird.x = this.minX + 1;
+        bird.vy *= 0.4;
       }
       if (bird.x <= this.minX) {
         bird.x = this.minX;
