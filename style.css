@@ -1,0 +1,323 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #e2e8f0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-shell {
+  width: min(960px, 90vw);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 32px;
+  border-radius: 24px;
+  box-shadow: 0 40px 80px rgba(2, 6, 23, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.top-bar h1 {
+  margin: 0;
+  font-size: 2.25rem;
+  color: #38bdf8;
+}
+
+.top-bar p {
+  margin: 8px 0 0;
+  color: #cbd5f5;
+}
+
+.controls {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.control-group {
+  background: rgba(30, 41, 59, 0.8);
+  padding: 16px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.control-label {
+  font-weight: 600;
+}
+
+.control-button,
+.primary-button {
+  background: #38bdf8;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: visible;
+}
+
+.control-button:hover,
+.primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(56, 189, 248, 0.4);
+}
+
+.primary-button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  justify-self: flex-start;
+}
+
+.typing-area {
+  background: rgba(15, 23, 42, 0.75);
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.target-text {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: #f8fafc;
+}
+
+.target-text span,
+.hud-text-display span {
+  display: inline-block;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.target-text .current,
+.hud-text-display .current {
+  color: #fbbf24;
+  text-decoration: underline;
+}
+
+.target-text .correct,
+.hud-text-display .correct {
+  color: #34d399;
+}
+
+.target-text .incorrect,
+.hud-text-display .incorrect {
+  color: #f87171;
+}
+
+.target-text .current.correct,
+.hud-text-display .current.correct {
+  color: #34d399;
+}
+
+.target-text .current.incorrect,
+.hud-text-display .current.incorrect {
+  color: #f87171;
+  text-decoration-color: #f87171;
+}
+
+.target-text .remaining,
+.hud-text-display .remaining {
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.progress {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Fira Code", Consolas, "Liberation Mono", monospace;
+  font-size: 0.95rem;
+  color: #cbd5f5;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+}
+
+.stat {
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 16px;
+  padding: 16px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.stat-label {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #e0f2fe;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(12px);
+  background: rgba(10, 12, 23, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+  z-index: 100;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+#game-canvas {
+  border-radius: 24px;
+  border: 2px solid rgba(56, 189, 248, 0.45);
+  background: linear-gradient(180deg, #0ea5e9, #0f172a 80%);
+  max-width: 90vw;
+  height: auto;
+}
+
+.overlay-instructions {
+  text-align: center;
+  max-width: 520px;
+  color: #e2e8f0;
+}
+
+.overlay-hud {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  background: rgba(8, 47, 73, 0.6);
+  padding: 16px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(125, 211, 252, 0.35);
+  color: #e0f2fe;
+  font-family: "Fira Code", Consolas, "Liberation Mono", monospace;
+  flex-wrap: wrap;
+  max-width: 90vw;
+}
+
+.hud-label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(224, 242, 254, 0.75);
+}
+
+.hud-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.hud-text {
+  flex: 1 1 100%;
+}
+
+.hud-text-display {
+  display: block;
+  max-height: 160px;
+  overflow-y: auto;
+  padding-top: 8px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.hud-text-display span {
+  margin-right: 2px;
+}
+
+.control-button.shark-alert,
+.primary-button.shark-alert {
+  transition: transform 0.2s ease;
+}
+
+.control-button.shark-alert::after,
+.primary-button.shark-alert::after {
+  content: "🦈";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.2);
+  filter: drop-shadow(0 4px 8px rgba(2, 6, 23, 0.6));
+  pointer-events: none;
+  animation: shark-chomp 0.6s ease forwards;
+}
+
+@keyframes shark-chomp {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.3) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(360px, 90vw);
+  padding: 32px;
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 24px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 20px 60px rgba(8, 47, 73, 0.35);
+  align-items: center;
+  text-align: center;
+}
+
+.result-wpm {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #38bdf8;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .top-bar h1 {
+    font-size: 1.75rem;
+  }
+
+  .typing-area {
+    padding: 16px;
+  }
+}

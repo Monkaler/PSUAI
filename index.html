@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Flight Trainer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="top-bar">
+      <h1>Typing Flight Trainer</h1>
+      <p>Guide your flyer to line up with letters and options to make selections. Arrow keys move up and down.</p>
+    </header>
+
+    <section class="controls">
+      <div class="control-group">
+        <span class="control-label">Include punctuation</span>
+        <button class="control-button" data-option="punctuation">Decide in-flight</button>
+      </div>
+      <div class="control-group">
+        <span class="control-label">Random capitalization</span>
+        <button class="control-button" data-option="capitalization">Decide in-flight</button>
+      </div>
+      <div class="control-group">
+        <span class="control-label">Include numbers</span>
+        <button class="control-button" data-option="numbers">Decide in-flight</button>
+      </div>
+      <div class="control-group">
+        <span class="control-label">Limit type</span>
+        <button class="control-button" data-option="limit-mode">Decide in-flight</button>
+      </div>
+      <div class="control-group">
+        <span class="control-label">Limit value</span>
+        <button class="control-button" data-option="limit-value">Decide in-flight</button>
+      </div>
+      <button class="primary-button" id="start-test">Start Test</button>
+    </section>
+
+    <section class="typing-area">
+      <div class="target-text" id="target-text"></div>
+      <div class="progress">
+        <span>Current letter: <span id="current-letter"></span></span>
+        <span>Typed letters: <span id="typed-count">0</span></span>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <span class="stat-label">Timer</span>
+        <span class="stat-value" id="timer">0.0s</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">WPM</span>
+        <span class="stat-value" id="wpm">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Accuracy</span>
+        <span class="stat-value" id="accuracy">100%</span>
+      </div>
+    </section>
+  </main>
+
+  <div class="overlay hidden" id="game-overlay">
+    <div class="overlay-hud">
+      <div>
+        <span class="hud-label">Current letter</span>
+        <span class="hud-value" id="overlay-letter">-</span>
+      </div>
+      <div>
+        <span class="hud-label">WPM</span>
+        <span class="hud-value" id="overlay-wpm">0</span>
+      </div>
+      <div class="hud-text">
+        <span class="hud-label">Excerpt</span>
+        <div class="hud-value hud-text-display" id="overlay-snippet"></div>
+      </div>
+    </div>
+    <canvas id="game-canvas" width="720" height="480"></canvas>
+    <div class="overlay-instructions">
+      <h2 id="overlay-title">In-flight decision</h2>
+      <p>Steer with the arrows, then press Enter to lock in. Keys drift, wiggle, and swap—keep up!</p>
+    </div>
+  </div>
+
+  <template id="result-template">
+    <div class="modal">
+      <h2>Flight report</h2>
+      <p id="result-summary"></p>
+      <button class="primary-button" id="restart">Fly again</button>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
